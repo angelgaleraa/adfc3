@@ -1,0 +1,9 @@
+{
+	"name": "adf3angelgalera",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "8b98daa2-4b80-46f1-bc10-7f9183b4c9b4",
+		"tenantId": "216c2c0c-506f-4a94-b746-1bd05db6fa0f"
+	}
+}
