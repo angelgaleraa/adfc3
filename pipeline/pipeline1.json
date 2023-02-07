@@ -56,12 +56,22 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DelimitedText1",
+						"referenceName": "DelimitedText2",
 						"type": "DatasetReference"
 					}
 				]
 			}
 		],
+		"parameters": {
+			"input": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"input": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
