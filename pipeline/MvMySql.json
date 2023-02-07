@@ -26,7 +26,7 @@
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
 							"quoteAllText": true,
-							"fileExtension": ".txt"
+							"fileExtension": ".csv"
 						}
 					},
 					"enableStaging": false,
@@ -48,11 +48,22 @@
 				"outputs": [
 					{
 						"referenceName": "DelimitedText1",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"path": {
+								"value": "@pipeline().parameters.input_path",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
 		],
+		"parameters": {
+			"input_path": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
