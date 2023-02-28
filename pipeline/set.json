@@ -1,0 +1,26 @@
+{
+	"name": "set",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "fecha",
+					"value": {
+						"value": "@concat(formatDateTime(utcnow(), 'ddMMyyyy'), '.flg')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"fecha": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
