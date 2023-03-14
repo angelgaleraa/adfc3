@@ -20,7 +20,11 @@
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
-							"wildcardFileName": "*",
+							"wildcardFolderPath": {
+								"value": "@formatDateTime(utcNow(), 'ddMMyyyy')",
+								"type": "Expression"
+							},
+							"wildcardFileName": "*csv",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -53,7 +57,10 @@
 						"referenceName": "DelimitedText1",
 						"type": "DatasetReference",
 						"parameters": {
-							"path": "input"
+							"path": {
+								"value": "input",
+								"type": "Expression"
+							}
 						}
 					}
 				],

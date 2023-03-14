@@ -8,6 +8,10 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"expression": {
+						"value": "@equals(variables('verification'),true)",
+						"type": "Expression"
+					},
 					"activities": [
 						{
 							"name": "Get Input",
@@ -169,6 +173,10 @@
 		},
 		"variables": {
 			"exists_flag": {
+				"type": "Boolean",
+				"defaultValue": false
+			},
+			"verification": {
 				"type": "Boolean",
 				"defaultValue": false
 			}
