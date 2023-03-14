@@ -1,80 +1,7 @@
 {
-	"name": "move",
+	"name": "MoveFromLinux",
 	"properties": {
 		"activities": [
-			{
-				"name": "Get Input",
-				"type": "GetMetadata",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"dataset": {
-						"referenceName": "FlagDataset",
-						"type": "DatasetReference"
-					},
-					"fieldList": [
-						"childItems"
-					],
-					"storeSettings": {
-						"type": "AzureBlobStorageReadSettings",
-						"recursive": true,
-						"enablePartitionDiscovery": false
-					},
-					"formatSettings": {
-						"type": "BinaryReadSettings"
-					}
-				}
-			},
-			{
-				"name": "Filter1",
-				"type": "Filter",
-				"dependsOn": [
-					{
-						"activity": "Get Input",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"items": {
-						"value": "@activity('Get Input').output.childItems",
-						"type": "Expression"
-					},
-					"condition": {
-						"value": "@equals(item().name, concat(formatDateTime(utcnow(),'ddMMyyyy'), '.flg'))\r\n",
-						"type": "Expression"
-					}
-				}
-			},
-			{
-				"name": "Set variable1",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "Filter1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "exists_flag",
-					"value": {
-						"value": "@equals(activity('Filter1').output.FilteredItemsCount, 1)",
-						"type": "Expression"
-					}
-				}
-			},
 			{
 				"name": "Until1",
 				"type": "Until",
@@ -83,7 +10,7 @@
 				"typeProperties": {
 					"activities": [
 						{
-							"name": "Get Input_copy1",
+							"name": "Get Input",
 							"type": "GetMetadata",
 							"dependsOn": [],
 							"policy": {
@@ -113,11 +40,11 @@
 							}
 						},
 						{
-							"name": "Filter1_copy1",
+							"name": "Filter1",
 							"type": "Filter",
 							"dependsOn": [
 								{
-									"activity": "Get Input_copy1",
+									"activity": "Get Input",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -130,17 +57,17 @@
 									"type": "Expression"
 								},
 								"condition": {
-									"value": "@equals(item().name, concat(formatDateTime(utcnow(),'ddMMyyyy'), '.flg'))\r\n",
+									"value": "@equals(item().name, concat(formatDateTime(utcnow(),'ddMMyyyy'), '.flg'))\n",
 									"type": "Expression"
 								}
 							}
 						},
 						{
-							"name": "Set variable1_copy1",
+							"name": "Set variable1",
 							"type": "SetVariable",
 							"dependsOn": [
 								{
-									"activity": "Filter1_copy1",
+									"activity": "Filter1",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -158,8 +85,88 @@
 					],
 					"timeout": "0.12:00:00"
 				}
+			},
+			{
+				"name": "If Condition1",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Until1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(variables('exists_flag'), true)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Execute Pipeline2",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitOnCompletion": true
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "If Condition2",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Until1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(variables('exists_flag'), true)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Execute Pipeline1",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "MoveFromMySql",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"input_path": "input"
+								}
+							}
+						}
+					]
+				}
 			}
 		],
+		"parameters": {
+			"input_path": {
+				"type": "string"
+			},
+			"exec_mysql": {
+				"type": "bool",
+				"defaultValue": false
+			},
+			"exec_linux": {
+				"type": "bool",
+				"defaultValue": false
+			}
+		},
 		"variables": {
 			"exists_flag": {
 				"type": "Boolean",
