@@ -109,7 +109,7 @@
 					},
 					"ifTrueActivities": [
 						{
-							"name": "Execute Pipeline2",
+							"name": "MoveFromInputOutput",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
 							"userProperties": [],
