@@ -114,6 +114,10 @@
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
+								"pipeline": {
+									"referenceName": "MoveFromMySql",
+									"type": "PipelineReference"
+								},
 								"waitOnCompletion": true
 							}
 						}
