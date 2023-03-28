@@ -115,10 +115,20 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "MoveFromMySql",
+									"referenceName": "MoveFromInputOutput",
 									"type": "PipelineReference"
 								},
-								"waitOnCompletion": true
+								"waitOnCompletion": true,
+								"parameters": {
+									"input_path": {
+										"value": "@pipeline().parameters.input_path",
+										"type": "Expression"
+									},
+									"output_path": {
+										"value": "@pipeline().parameters.output_path",
+										"type": "Expression"
+									}
+								}
 							}
 						}
 					]
@@ -136,6 +146,9 @@
 			"exec_linux": {
 				"type": "bool",
 				"defaultValue": false
+			},
+			"output_path": {
+				"type": "string"
 			}
 		},
 		"variables": {
