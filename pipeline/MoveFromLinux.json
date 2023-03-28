@@ -140,14 +140,6 @@
 				"type": "string",
 				"defaultValue": "input"
 			},
-			"exec_mysql": {
-				"type": "bool",
-				"defaultValue": false
-			},
-			"exec_linux": {
-				"type": "bool",
-				"defaultValue": false
-			},
 			"output_path": {
 				"type": "string",
 				"defaultValue": "output"
