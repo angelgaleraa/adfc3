@@ -137,7 +137,8 @@
 		],
 		"parameters": {
 			"input_path": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "input"
 			},
 			"exec_mysql": {
 				"type": "bool",
@@ -148,7 +149,8 @@
 				"defaultValue": false
 			},
 			"output_path": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "output"
 			}
 		},
 		"variables": {
