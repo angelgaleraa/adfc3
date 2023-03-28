@@ -93,14 +93,8 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "DelimitedText1",
-						"type": "DatasetReference",
-						"parameters": {
-							"path": {
-								"value": "@pipeline().parameters.input_path",
-								"type": "Expression"
-							}
-						}
+						"referenceName": "DelimitedText2",
+						"type": "DatasetReference"
 					},
 					"enableLogging": false,
 					"storeSettings": {
