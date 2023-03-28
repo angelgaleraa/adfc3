@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals(variables('verification'),true)",
+						"value": "@equals(variables('exists_flag'),true)",
 						"type": "Expression"
 					},
 					"activities": [
@@ -87,7 +87,7 @@
 							}
 						}
 					],
-					"timeout": "0.12:00:00"
+					"timeout": "0.4:00:00"
 				}
 			},
 			{
@@ -119,43 +119,6 @@
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true
-							}
-						}
-					]
-				}
-			},
-			{
-				"name": "If Condition2",
-				"type": "IfCondition",
-				"dependsOn": [
-					{
-						"activity": "Until1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"expression": {
-						"value": "@equals(variables('exists_flag'), true)",
-						"type": "Expression"
-					},
-					"ifTrueActivities": [
-						{
-							"name": "Execute Pipeline1",
-							"type": "ExecutePipeline",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"pipeline": {
-									"referenceName": "MoveFromMySql",
-									"type": "PipelineReference"
-								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"input_path": "input"
-								}
 							}
 						}
 					]
